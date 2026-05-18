@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pradeepa S — AI & Full-Stack Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Pradeepa S — AI/ML Engineer and Full-Stack Developer specializing in intelligent web applications, edge AI, and rural-tech solutions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Outfit:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=1.0.9" />
+  <link rel="stylesheet" href="effects.css?v=1.0.8" />
+  <script>
+    // Critical initialization
+    (function() {
+      const savedTheme = localStorage.getItem('nexus-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = savedTheme || (systemPrefersLight ? 'light' : 'dark');
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light-mode');
+      }
+    })();
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log("Nexus Theme System Initialized (System Preference Support Active)");
+    });
+  </script>
+</head>
+<body>
+
+  <!-- ============ PAGE LOADER ============ -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <span class="logo-bracket">&lt;</span>
+        <span class="gradient-text">PRADEEPA</span>
+        <span class="logo-bracket">/&gt;</span>
+      </div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <div class="loader-status">Initializing AI Engine...</div>
+    </div>
+  </div>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ============ PARTICLES CANVAS ============ -->
+  <canvas id="particleCanvas" class="particle-canvas"></canvas>
+  
+  <!-- Orbital Rings for Spatial Depth -->
+  <div class="orbital-ring ring-1"></div>
+  <div class="orbital-ring ring-2"></div>
+  <div class="orbital-ring ring-3"></div>
+
+  <!-- ============ BACK TO TOP ============ -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ============ CURSOR ============ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- ============ NAV / HUD ============ -->
+  <nav class="hud-nav" id="navbar">
+    <div class="hud-inner">
+      <div class="hud-left">
+        <div class="hud-logo">
+          PRADEEPA<span class="dot">.</span>
+        </div>
+      </div>
+      <div class="hud-center">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home" class="nav-link">Initiate</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Nexus</a></li>
+          <li><a href="#experience" class="nav-link">Journey</a></li>
+          <li><a href="#contact" class="nav-link">Connect</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="hud-right" style="display: flex; align-items: center; gap: 1.5rem;">
+        <button class="nav-theme-toggle" id="navThemeToggle" aria-label="Toggle Theme">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <div class="hud-status">
+          <span class="status-tag">CYBER_NEXUS_01</span>
+          <div class="hud-clock" id="hudClock">SYST_DATE</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Corner Brackets -->
+  <div class="hud-corner tl"></div>
+  <div class="hud-corner tr"></div>
+  <div class="hud-corner bl"></div>
+  <div class="hud-corner br"></div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <!-- Removed code-bg overlay per user request -->
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-overlay"></div>
+      <div class="hero-chips" id="heroChips"></div>
+      
+      <!-- Holographic Scanning Transition -->
+      <div class="hologram-scanner"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge" id="hero-badge">
+        <span class="badge-dot"></span>
+        Available for Opportunities
+      </div>
+      <h1 class="hero-name" id="hero-name" data-text="Hi, I'm Pradeepa S">
+        Hi, I'm <span class="gradient-text">Pradeepa S</span>
+      </h1>
+      <div class="hero-role" id="hero-role">
+        <span class="role-static">I build </span>
+        <span class="role-dynamic" id="roleDynamic">AI-Powered Apps</span>
+      </div>
+      <p class="hero-desc" id="hero-desc">
+        Full-Stack Developer & AI/ML Engineer crafting intelligent, real-world solutions — from smart villages to fire-detecting edge AI systems.
+      </p>
+      <div class="hero-actions" id="hero-actions">
+        <a href="#projects" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+          Explore Work
+        </a>
+
+      </div>
+
+    </div>
+    <div class="hero-visual" id="hero-visual">
+      <div class="code-window">
+        <div class="window-bar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="window-title">pradeepa.ts</span>
+        </div>
+        <div class="code-body">
+          <div class="code-line"><span class="c-kw">const</span> <span class="c-var">pradeepa</span> <span class="c-op">=</span> {</div>
+          <div class="code-line pad"><span class="c-key">role</span><span class="c-op">:</span> <span class="c-str">"AI & Full-Stack Dev"</span>,</div>
+          <div class="code-line pad"><span class="c-key">passion</span><span class="c-op">:</span> <span class="c-str">"Solving Real Problems"</span>,</div>
+          <div class="code-line pad"><span class="c-key">stack</span><span class="c-op">:</span> [<span class="c-str">"Next.js"</span>, <span class="c-str">"Python"</span>, <span class="c-str">"YOLOv11"</span>],</div>
+          <div class="code-line pad"><span class="c-key">focus</span><span class="c-op">:</span> <span class="c-str">"Rural-Tech & Edge AI"</span>,</div>
+          <div class="code-line pad"><span class="c-key">status</span><span class="c-op">:</span> <span class="c-str">"🟢 Open to Work"</span></div>
+          <div class="code-line">};</div>
+          <div class="code-line">&nbsp;</div>
+          <div class="code-line"><span class="c-fn">buildAmazingThings</span>(pradeepa);<span class="cursor-blink">|</span></div>
+        </div>
+      </div>
+      <div class="tech-orbit">
+        <div class="orbit-ring">
+          <div class="orbit-item" style="--angle:0deg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="orbit-item" style="--angle:72deg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="orbit-item" style="--angle:144deg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="orbit-item" style="--angle:216deg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="orbit-item" style="--angle:288deg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE TECH TICKER ============ -->
+  <div class="ticker-strip" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Next.js</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Python</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">YOLOv11</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Supabase</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">React</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">TypeScript</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">FastAPI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">OpenCV</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Gemini AI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Edge AI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Tailwind CSS</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Docker</span><span class="ticker-dot">◆</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item">Next.js</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Python</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">YOLOv11</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Supabase</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">React</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">TypeScript</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">FastAPI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">OpenCV</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Gemini AI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Edge AI</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Tailwind CSS</span><span class="ticker-dot">◆</span>
+      <span class="ticker-item">Docker</span><span class="ticker-dot">◆</span>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">01 — About Me</span>
+        <h2 class="section-title">The <span class="gradient-text">Story</span> Behind the Code</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-avatar-wrap">
+          <div class="avatar-card">
+            <div class="avatar-glow"></div>
+            <div class="avatar-icon">
+              <img src="assets/profile.jpg" alt="Pradeepa S" />
+            </div>
+            <div class="avatar-name">Pradeepa S</div>
+            <div class="avatar-title">AI & Full-Stack Developer</div>
+          </div>
+        </div>
+        <div class="about-content">
+          <p class="about-text">
+            I'm a passionate developer who believes technology should be <strong>accessible, impactful, and beautiful</strong>. My journey spans from building real-time AI systems that detect fire using edge cameras, to creating digital platforms that empower rural communities across India.
+          </p>
+          <p class="about-text">
+            With a strong foundation in <strong>Next.js, Python, and AI/ML</strong>, I love tackling complex challenges — whether it's integrating YOLOv11 for real-time object detection or architecting robust web applications with Supabase backends.
+          </p>
+          <p class="about-text">
+            I've competed in and built projects for <strong>hackathons</strong>, always pushing the boundary of what's possible within tight deadlines. My work reflects a commitment to clean code, stunning UI, and genuine social impact.
+          </p>
+          <div class="about-info-grid">
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </span>
+              <div>
+                <span class="info-label">Education</span>
+                <span class="info-value">Electronics and Communication Engineering</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <div>
+                <span class="info-label">Location</span>
+                <span class="info-value">Erode, India</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </span>
+              <div>
+                <span class="info-label">Focus</span>
+                <span class="info-value">AI / Full-Stack / Edge Computing</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </span>
+              <div>
+                <span class="info-label">Languages</span>
+                <span class="info-value">English</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">02 — Skills</span>
+        <h2 class="section-title">My <span class="gradient-text">Tech Arsenal</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category glass-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </span>
+            <h3>Frontend</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">Next.js</span>
+            <span class="skill-pill">React</span>
+            <span class="skill-pill">TypeScript</span>
+            <span class="skill-pill">Tailwind CSS</span>
+            <span class="skill-pill">HTML5 / CSS3</span>
+            <span class="skill-pill">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </span>
+            <h3>Backend & DB</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Supabase</span>
+            <span class="skill-pill">PostgreSQL</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">FastAPI</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/></svg>
+            </span>
+            <h3>AI / ML</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">YOLOv11</span>
+            <span class="skill-pill">OpenCV</span>
+            <span class="skill-pill">BERT / NLP</span>
+            <span class="skill-pill">Gemini API</span>
+            <span class="skill-pill">Edge AI</span>
+            <span class="skill-pill">Computer Vision</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a2 2 0 0 1-2.79-2.79L14.7 6.3Z"/><path d="m5.2 18.8 4.27-4.27"/><path d="M18 15l-3-3"/><path d="M13.2 13.8 8.93 18.07a2 2 0 0 1-2.83-2.83L10.37 11"/><path d="M11 6 3 14l2.5 2.5a2 2 0 1 0 2.83-2.83L5.5 11 11 5.5"/><path d="m14 18 8-8-2.5-2.5a2 2 0 1 0-2.83 2.83L19 13 13.5 18.5"/></svg>
+            </span>
+            <h3>Tools & DevOps</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">Git & GitHub</span>
+            <span class="skill-pill">VS Code</span>
+            <span class="skill-pill">Vercel</span>
+            <span class="skill-pill">Docker</span>
+            <span class="skill-pill">Figma</span>
+            <span class="skill-pill">Postman</span>
+          </div>
+        </div>
+      </div>
+
+
+  </section>
+
+  <!-- ============ PROJECT NEXUS (HORIZONTAL CAROUSEL) ============ -->
+  <section class="section projects-nexus" id="projects">
+    <div class="nexus-header">
+      <span class="section-tag">SELECTED WORKS</span>
+      <h2 class="nexus-title">Project <span class="gradient-text">Nexus</span></h2>
+      <p class="nexus-subtitle">Scroll to explore the sequence</p>
+    </div>
+    
+    <div class="nexus-container" id="nexusContainer">
+      <div class="nexus-track" id="nexusTrack">
+        
+        <!-- Project 1: Smart-Gram -->
+        <div class="project-nexus-card glass-card" id="project-smartgram">
+          <div class="project-nexus-badge">⭐ Featured</div>
+          <div class="project-nexus-image">
+            <img src="assets/project_smartgram.png" alt="Smart-Gram Dashboard Interface">
+          </div>
+          <div class="project-nexus-content">
+            <h3 class="project-nexus-title">SMART-GRAM</h3>
+            <p class="project-nexus-sub">Smart Village Management</p>
+            
+            <div class="project-info-block">
+              <span class="info-tag">CHALLENGE</span>
+              <p>Bridging the digital divide in rural India with real-time data access.</p>
+            </div>
+            
+            <div class="project-info-block">
+              <span class="info-tag">SOLUTION</span>
+              <p>AI-powered platform for agriculture, water monitoring, and healthcare.</p>
+            </div>
+            
+            <div class="project-nexus-stack">
+              <span>Next.js</span><span>Supabase</span><span>Gemini AI</span>
+            </div>
+            
+            <div class="project-nexus-actions">
+              <a href="#" class="nexus-btn">View Code</a>
+              <a href="#" class="nexus-btn primary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Fireguard AI -->
+        <div class="project-nexus-card glass-card" id="project-fire">
+          <div class="project-nexus-badge">⭐ Featured</div>
+          <div class="project-nexus-image">
+            <img src="assets/project_fire.png" alt="Fireguard AI System Interface">
+          </div>
+          <div class="project-nexus-content">
+            <h3 class="project-nexus-title">FIREGUARD AI</h3>
+            <p class="project-nexus-sub">Edge AI Safety System</p>
+            
+            <div class="project-info-block">
+              <span class="info-tag">CHALLENGE</span>
+              <p>Real-time fire detection with zero latency on edge devices.</p>
+            </div>
+            
+            <div class="project-info-block">
+              <span class="info-tag">SOLUTION</span>
+              <p>Optimized YOLOv11 pipeline with premium monitoring dashboard.</p>
+            </div>
+            
+            <div class="project-nexus-stack">
+              <span>YOLOv11</span><span>Python</span><span>OpenCV</span>
+            </div>
+            
+            <div class="project-nexus-actions">
+              <a href="#" class="nexus-btn">View Code</a>
+              <a href="#" class="nexus-btn primary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="nexus-nav-hint">
+      <span>SCROLL TO NAVIGATE</span>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE / TIMELINE ============ -->
+  <section class="section timeline-section" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">04 — Journey</span>
+        <h2 class="section-title">My <span class="gradient-text">Developer Journey</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass-card">
+            <span class="timeline-year">2026</span>
+            <h4>SMART-GRAM — Digital Village Hackathon</h4>
+            <p>Built an end-to-end smart village management platform in Next.js with real-time AI, English support, and Supabase backend. Received hackathon recognition.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass-card">
+            <span class="timeline-year">2026</span>
+            <h4>Fireguard AI</h4>
+            <p>Upgraded Fireguard AI system to use YOLOv11 with optimized real-time frame processing. Built a premium dark-glassmorphism monitoring dashboard.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass-card">
+            <span class="timeline-year">2025</span>
+            <h4>Started Full-Stack AI Journey</h4>
+            <p>Began deep diving into Next.js, TypeScript, and Python AI frameworks. Explored computer vision, NLP, and cloud-native architectures.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">05 — Contact</span>
+        <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+        <p class="section-sub">I'm always open to interesting projects, collaborations, and opportunities. Drop me a message!</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <a href="tel:+919342203882" class="contact-card glass-card" id="contact-phone" style="text-decoration: none;">
+            <span class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#grad-phone)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                  <linearGradient id="grad-phone" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#f43f5e;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <div>
+              <span class="contact-label">Phone</span>
+              <span class="contact-val">9342203882</span>
+            </div>
+          </a>
+          <a href="mailto:pradeepaselvakumar85@gmail.com" class="contact-card glass-card" id="contact-email" style="text-decoration: none;">
+            <span class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#grad-email)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                  <linearGradient id="grad-email" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <div>
+              <span class="contact-label">Email</span>
+              <span class="contact-val">pradeepaselvakumar85@gmail.com</span>
+            </div>
+          </a>
+          <a href="https://github.com/pradeepa9342" target="_blank" class="contact-card glass-card" id="contact-github" style="text-decoration: none;">
+            <span class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#grad-github)">
+                <defs>
+                  <linearGradient id="grad-github" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </span>
+            <div>
+              <span class="contact-label">GitHub</span>
+              <span class="contact-val">github.com/pradeepa9342</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/pradeepa-pradeepa-8872292a3/" target="_blank" class="contact-card glass-card" id="contact-linkedin" style="text-decoration: none;">
+            <span class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#grad-linkedin)">
+                <defs>
+                  <linearGradient id="grad-linkedin" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#0a66c2;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </span>
+            <div>
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-val">linkedin.com/in/pradeepa-pradeepa-8872292a3</span>
+            </div>
+          </a>
+          <div class="contact-card glass-card" id="contact-location">
+            <span class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#grad-location)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                  <linearGradient id="grad-location" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#f43f5e;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            <div>
+              <span class="contact-label">Location</span>
+              <span class="contact-val">Erode, India</span>
+            </div>
+          </div>
+        </div>
+        <form class="terminal-form glass-card" id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="terminal-bar">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="terminal-title">pradeepa@portfolio:~/contact</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="terminal-prompt">$</span>
+              <span class="terminal-cmd">send_message --to pradeepa</span>
+            </div>
+            <div class="terminal-line terminal-output">
+              <span class="terminal-info">// Initializing secure connection...</span>
+            </div>
+            <div class="terminal-field">
+              <label for="fname"><span class="terminal-prompt">›</span> name:</label>
+              <input type="text" id="fname" name="name" placeholder="Your Name" required />
+            </div>
+            <div class="terminal-field">
+              <label for="femail"><span class="terminal-prompt">›</span> email:</label>
+              <input type="email" id="femail" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="terminal-field">
+              <label for="fmessage"><span class="terminal-prompt">›</span> message:</label>
+              <textarea id="fmessage" name="message" rows="4" placeholder="Type your message here..." required></textarea>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-prompt">$</span>
+              <button type="submit" class="terminal-submit" id="submitBtn">
+                <span id="btnText">execute send_message</span><span class="terminal-cursor">█</span>
+              </button>
+            </div>
+            <p class="form-success" id="formSuccess">✅ Message sent successfully. pradeepa will respond shortly.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-bracket">&lt;</span>PRADEEPA<span class="logo-bracket">/&gt;</span>
+      </div>
+      <p class="footer-copy">© 2026 Pradeepa S. Built with ❤️ and lots of ☕</p>
+      <div class="footer-socials">
+        <a href="https://github.com/pradeepa9342" target="_blank" class="social-link" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/pradeepa-pradeepa-8872292a3/" target="_blank" class="social-link" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script src="script.js?v=1.0.9"></script>
+</body>
+</html>
