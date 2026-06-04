@@ -1935,10 +1935,10 @@ body::before {
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 40vw;
-  scroll-snap-type: x mandatory;
+  padding: 0 5vw;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .nexus-container::-webkit-scrollbar { display: none; }
@@ -1947,9 +1947,9 @@ body::before {
   display: inline-flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
-  gap: 120px;
+  gap: 80px;
   align-items: center;
-  padding: 100px 10vw;
+  padding: 50px 20px;
   perspective: 2000px;
   width: max-content;
 }
@@ -1960,7 +1960,6 @@ body::before {
   width: 400px;
   height: 600px;
   flex-shrink: 0;
-  scroll-snap-align: center;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -3157,27 +3156,9 @@ body::before {
   z-index: 0;
 }
 
-.hologram-scanner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--primary-400);
-  box-shadow: 0 0 20px var(--primary-400);
-  opacity: 0.3;
-  animation: scan-line 4s ease-in-out infinite;
-}
-
 @keyframes hologram-scan {
   0% { background-position: 0% 0%; }
   100% { background-position: 0% 100%; }
-}
-
-@keyframes scan-line {
-  0%, 100% { top: 0; opacity: 0.1; }
-  50% { top: 100%; opacity: 0.5; }
 }
 
 /* Update hero-visual for 3D code window entrance */

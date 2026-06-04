@@ -41,14 +41,7 @@ function initCanvas() {
     }, 200);
   }, { passive: true });
 
-  // 1. Faint Nebula Orbs for Depth
-  const NEBULAS = [
-    { x: 0.2, y: 0.3, r: 0.6, color: 'rgba(34, 211, 238, 0.04)' }, // Cyan
-    { x: 0.8, y: 0.7, r: 0.5, color: 'rgba(126, 34, 206, 0.03)' }, // Deep Purple
-    { x: 0.5, y: 0.5, r: 0.8, color: 'rgba(56, 189, 248, 0.02)' }, // Blue
-  ];
-
-  // 2. Stars
+  // 1. Stars (Nebula effect is handled efficiently by CSS .aurora-mesh)
   const numStars = Math.floor((W * H) / 2500);
   const stars = Array.from({ length: numStars }, () => ({
     x: Math.random() * W,
@@ -60,7 +53,7 @@ function initCanvas() {
     blinkVal: Math.random() * Math.PI * 2
   }));
 
-  // 3. Giant Orbital Rings (Gyroscope)
+  // 2. Giant Orbital Rings (Gyroscope)
   const rings = [
     { rx: 0.42, ry: 0.12, angle: 0,           speed: 0.0008,  color: 'rgba(45, 212, 191, 0.3)' },
     { rx: 0.38, ry: 0.08, angle: Math.PI / 3, speed: -0.0006, color: 'rgba(34, 211, 238, 0.2)' },
@@ -71,17 +64,6 @@ function initCanvas() {
   function loop() {
     ctx.clearRect(0, 0, W, H);
     
-    // Draw Nebulas
-    NEBULAS.forEach(n => {
-      const grad = ctx.createRadialGradient(W * n.x, H * n.y, 0, W * n.x, H * n.y, Math.max(W, H) * n.r);
-      grad.addColorStop(0, n.color);
-      grad.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(W * n.x, H * n.y, Math.max(W, H) * n.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
     // Draw Stars
     ctx.fillStyle = '#e0f2fe';
     stars.forEach(s => {
@@ -186,14 +168,6 @@ function onScroll() {
       if (a) a.classList.add('active');
     }
   });
-
-  // Reveal elements (now handled by IntersectionObserver in setupReveal)
-
-  // Progress bars
-  triggerBars();
-
-  // Counters
-  triggerCounters();
 }
 
 window.addEventListener('scroll', () => {
@@ -299,22 +273,29 @@ const statsSection = document.querySelector('.hero-stats');
 
 function triggerCounters() {
   if (countersTriggered || !statsSection) return;
-  const rect = statsSection.getBoundingClientRect();
-  if (rect.top < window.innerHeight) {
-    countersTriggered = true;
-    document.querySelectorAll('.stat-number').forEach(el => {
-      const target   = parseInt(el.dataset.target);
-      const duration = 1600;
-      const start    = performance.now();
-      const easeOut  = t => 1 - Math.pow(1 - t, 3);
-      function frame(now) {
-        const p = Math.min((now - start) / duration, 1);
-        el.textContent = Math.round(easeOut(p) * target);
-        if (p < 1) requestAnimationFrame(frame);
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !countersTriggered) {
+        countersTriggered = true;
+        document.querySelectorAll('.stat-number').forEach(el => {
+          const target   = parseInt(el.dataset.target);
+          const duration = 1600;
+          const start    = performance.now();
+          const easeOut  = t => 1 - Math.pow(1 - t, 3);
+          function frame(now) {
+            const p = Math.min((now - start) / duration, 1);
+            el.textContent = Math.round(easeOut(p) * target);
+            if (p < 1) requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        });
+        observer.unobserve(entry.target);
       }
-      requestAnimationFrame(frame);
     });
-  }
+  }, { threshold: 0.1 });
+  
+  observer.observe(statsSection);
 }
 
 // ============================================================
@@ -619,7 +600,7 @@ function setupNexus() {
     setInterval(updateHUD, 1000); 
   }
 
-  // 2. Multi-Carousel Nexus Engine
+  // 2. Multi-Carousel Nexus Engine (Optimized coverflow transition)
   const carousels = [
     { containerId: 'nexusContainer', cardClass: '.project-nexus-card' }
   ];
@@ -631,25 +612,42 @@ function setupNexus() {
     const cards = container.querySelectorAll(cardClass);
     if (cards.length === 0) return;
 
-    function updateCarousel() {
-      const containerRect = container.getBoundingClientRect();
-      const centerX = containerRect.left + containerRect.width / 2;
+    let containerWidth = container.clientWidth;
+    let centerX = containerWidth / 2;
+    let cardData = [];
 
-      cards.forEach(card => {
-        const cardRect = card.getBoundingClientRect();
-        const cardCenter = cardRect.left + cardRect.width / 2;
-        const distanceFromCenter = cardCenter - centerX;
-        const maxDistance = containerRect.width / 2;
-        const normalizedDist = Math.max(-1, Math.min(1, distanceFromCenter / maxDistance));
-        
-        const rotateY = normalizedDist * -35; 
-        const scale = 1 - Math.abs(normalizedDist) * 0.15;
-        const opacity = 1 - Math.abs(normalizedDist) * 0.6;
-        
-        card.style.transform = `rotateY(${rotateY}deg) scale(${scale})`;
-        card.style.opacity = opacity;
+    function cacheDimensions() {
+      containerWidth = container.clientWidth;
+      centerX = containerWidth / 2;
+      cardData = Array.from(cards).map(card => {
+        return {
+          element: card,
+          centerX: card.offsetLeft + card.offsetWidth / 2
+        };
       });
     }
+
+    function updateCarousel() {
+      const scrollLeft = container.scrollLeft;
+      const maxDistance = containerWidth / 2;
+
+      cardData.forEach(card => {
+        const distanceFromCenter = card.centerX - scrollLeft - centerX;
+        const normalizedDist = Math.max(-1, Math.min(1, distanceFromCenter / maxDistance));
+        
+        // Sleek, premium coverflow transition
+        const rotateY = normalizedDist * -12; 
+        const scale = 1 - Math.abs(normalizedDist) * 0.08;
+        const opacity = 1 - Math.abs(normalizedDist) * 0.3;
+        const translateZ = Math.abs(normalizedDist) * -100;
+        
+        card.element.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+        card.element.style.opacity = opacity;
+      });
+    }
+
+    let isScrolling = false;
+    let targetScrollLeft = container.scrollLeft;
 
     // Wheel to Horizontal mapping — only intercept when carousel has room to scroll
     container.addEventListener('wheel', (e) => {
@@ -657,14 +655,49 @@ function setupNexus() {
       const maxScroll = container.scrollWidth - container.clientWidth;
       const atStart = container.scrollLeft <= 0;
       const atEnd   = container.scrollLeft >= maxScroll - 1;
+      
       // Pass scroll through to page if at limits
       if ((atStart && e.deltaY < 0) || (atEnd && e.deltaY > 0)) return;
+      
       e.preventDefault();
-      container.scrollLeft += e.deltaY * 4.5; // Increased from 2.5x to 4.5x for faster navigation
+      
+      // Smooth navigation with custom interpolation (lerping)
+      targetScrollLeft = Math.max(0, Math.min(maxScroll, targetScrollLeft + e.deltaY * 1.5));
+      
+      if (!isScrolling) {
+        isScrolling = true;
+        // Temporarily disable CSS scroll-behavior: smooth for responsive JS lerp control
+        container.style.scrollBehavior = 'auto';
+        
+        function smoothStep() {
+          const diff = targetScrollLeft - container.scrollLeft;
+          if (Math.abs(diff) > 0.5) {
+            container.scrollLeft += diff * 0.15; // smooth glide factor
+            requestAnimationFrame(smoothStep);
+          } else {
+            container.scrollLeft = targetScrollLeft;
+            container.style.scrollBehavior = ''; // restore CSS behavior
+            isScrolling = false;
+          }
+        }
+        requestAnimationFrame(smoothStep);
+      }
     }, { passive: false });
 
-    container.addEventListener('scroll', updateCarousel, { passive: true });
-    window.addEventListener('resize', updateCarousel);
+    container.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        targetScrollLeft = container.scrollLeft;
+      }
+      updateCarousel();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      cacheDimensions();
+      updateCarousel();
+    });
+
+    // Run initial setup
+    cacheDimensions();
     updateCarousel();
   });
 }
